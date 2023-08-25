@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <configSections>
+        <section name="azdkconfig" type="AZDKControl.azdkConfig, AZDKControl, Version=0.2.5671.32601, Culture=neutral, PublicKeyToken=null" />
+    </configSections>
+    <azdkconfig>
+        <general>
+			<par name="intarrcnt" value="4" />
+            <par name="devaddr" value="0xA0" />
+            <par name="notif_type" value="64" />
+            <!-- par name="devaddr" value="0xCAC4C7C0" / -->
+        </general>
+        <cmdtypes>
+            <ctype descr="Команда переключения режимов" type="1" color="darkcyan" />
+            <ctype descr="Команда чтения регистров" type="2" color="green" />
+            <ctype descr="Команда записи регистров" type="130" color="darkgreen" />
+            <ctype descr="Команда запроса данных" type="3" color="blue" />
+            <ctype descr="Команда записи данных" type="131" color="darkblue" />
+            <ctype descr="Команда спецрежима чтения" type="4" color="orange" />
+            <ctype descr="Команда спецрежима записи, выберите файл" type="132" color="darkred" />
+            <ctype descr="Уведомление" type="64" color="yellow" />
+            <!--ctype descr="Команда записи прямоугольников" type="133" color="darkgreen" /-->
+        </cmdtypes>
+        <datatypes>
+            <datatype name="Complex" type="0" />
+            <datatype name="Байт" type="1" size="1" />
+            <datatype name="Флаги" type="2" size="2" />
+            <datatype name="Дв.слово" type="3" size="4" />
+            <datatype name="Целое" type="4" size="4" />
+            <datatype name="FixPN 2.30" type="5" size="4" />
+            <datatype name="Вектор FixPN 2.30" type="6" size="12" />
+            <datatype name="Кватернион FixPN 2.30" type="7" size="16" />
+            <datatype name="Время и дата" type="8" size="8" />
+            <datatype name="Список фотоцентров" type="9" />
+            <datatype name="Кватернион и время" type="10" />
+            <datatype name="Кадры" type="11" />
+            <datatype name="Массив целых" type="12" />
+            <datatype name="Массив байт" type="13" />
+            <datatype name="Массив слов" type="14" />
+            <datatype name="FixPN 2.14" type="15" size="2" />
+            <datatype name="Угловая скорость и время" type="16"/>
+            <datatype name="Пара фотоцентров" type="17"/>
+            <datatype name="Параметры" type="18"/>
+            <datatype name="Целевой объект" type="19"/>
+        </datatypes>
+        <commands>
+            <cmd name="Рестарт процессора" code="1" type="1" />
+            <cmd name="Сброс установок" code="2" type="131" />
+            <cmd name="Установка времени и даты" code="3" type="131">
+                <par name="время, мс" size="4" />
+                <par name="день" size="2" />
+                <par name="год" size="2" />
+            </cmd>
+            <cmd name="Установка регистра АЗДК" code="4" type="130">
+                <par name="№ рег." size="1" value="8" />
+                <par name="Значение" size="4" value="60800" />
+            </cmd>
+            <cmd name="Установка флагов управ." code="5" type="131">
+                <par name="фл.режима" size="1">
+                    <flag bit="0" name="Автостарт" value ="1" />
+                    <flag bit="1" name="Использ. гироск." value ="1" />
+                    <!--flag bit="2" name="Резерв" value ="0" /-->
+                    <flag bit="3" name="Обнуление стат." value ="1" />
+                    <flag bit="4" name="Сторож.таймер" value ="0" />
+                    <flag bit="5" name="Откл. бинирования" value ="1" />
+                    <flag bit="6" name="Режим спецкоманд" value ="1" />
+                    <flag bit="7" name="Полярность затвора" value ="0" />
+                </par>
+                <par name="фл.расчета" size="1" >
+                    <flag bit="0" name="Учет аберраций" value ="0" />
+                    <flag bit="1" name="Уточнение кватер." value ="1" />
+                    <flag bit="2" name="Пересчет в СК КА" value ="0" />
+                    <flag bit="3" name="Обработка изобр." value ="0" descr="Предварительная обработка изображения, учет неравномерностей" />
+                    <flag bit="4" name="Окна в реж. ПО" value ="0" />
+                    <flag bit="5" name="Выкл. ведения" value ="0" />
+                    <flag bit="6" name="Усиление сигнала" value ="0" descr="Включение усиления сигнала" />
+                    <!--flag bit="7" name="Адаптивная эксп." value ="0"  descr="Вкл. функции адаптивного изменения времени накопления в зависимости от смаза" /-->
+                </par>
+            </cmd>
+            <cmd name="Изменение флагов управ." code="32" type="131" rtype="2">
+                <par name="устан.фл.режима" size="1">
+                    <flag bit="0" name="Автостарт" value ="0" />
+                    <flag bit="1" name="Использ. гироск." value ="0" />
+                    <!--flag bit="2" name="Резерв" value ="0" /-->
+                    <flag bit="3" name="Обнуление стат." value ="" />
+                    <flag bit="4" name="Сторож.таймер" value ="0" />
+                    <flag bit="5" name="Откл. бинирования" value ="0" />
+                    <flag bit="6" name="Режим спецкоманд" value ="0" />
+                    <flag bit="7" name="Полярность затвора" value ="0" />
+                </par>
+                <par name="устан.фл.расчета" size="1" >
+                    <flag bit="0" name="Учет аберраций" value ="0" />
+                    <flag bit="1" name="Уточнение кватер." value ="0" />
+                    <flag bit="2" name="Пересчет в СК КА" value ="0" />
+                    <flag bit="3" name="Обработка изобр." value ="0" descr="Предварительная обработка изображения, учет неравномерностей" />
+                    <!--flag bit="4" name="Окна в реж. ПО" value ="0" /-->
+                    <flag bit="5" name="Выкл. ведения" value ="0" />
+                    <flag bit="6" name="Усиление сигнала" value ="0" descr="Включение усиления сигнала" />
+                    <!--flag bit="7" name="Адаптивная эксп." value ="0"  descr="Вкл. функции адаптивного изменения времени накопления в зависимости от смаза" /-->
+                </par>
+                <par name="сброс.фл.режима" size="1">
+                    <flag bit="0" name="Автостарт" value ="0" />
+                    <flag bit="1" name="Использ. гироск." value ="0" />
+                    <!--flag bit="2" name="Резерв" value ="0" /-->
+                    <flag bit="3" name="Обнуление стат." value ="" />
+                    <flag bit="4" name="Сторож.таймер" value ="0" />
+                    <flag bit="5" name="Откл. бинирования" value ="0" />
+                    <flag bit="6" name="Режим спецкоманд" value ="0" />
+                    <flag bit="7" name="Полярность затвора" value ="0" />
+                </par>
+                <par name="сброс.фл.расчета" size="1" >
+                    <flag bit="0" name="Учет аберраций" value ="0" />
+                    <flag bit="1" name="Уточнение кватер." value ="0" />
+                    <flag bit="2" name="Пересчет в СК КА" value ="0" />
+                    <flag bit="3" name="Обработка изобр." value ="0" descr="Предварительная обработка изображения, учет неравномерностей" />
+                    <!--flag bit="4" name="Окна в реж. ПО" value ="0" /-->
+                    <flag bit="5" name="Выкл. ведения" value ="0" />
+                    <flag bit="6" name="Усиление сигнала" value ="0" descr="Включение усиления сигнала" />
+                    <!--flag bit="7" name="Адаптивная эксп." value ="0"  descr="Вкл. функции адаптивного изменения времени накопления в зависимости от смаза" /-->
+                </par>
+            </cmd>
+            <cmd name="Установка ск.движ. КА" code="6" type="131">
+                <par name="Vx" size="2" />
+                <par name="Vy" size="2" />
+                <par name="Vz" size="2" />
+            </cmd>
+            <cmd name="Установка угл.скор." code="7" type="131">
+                <par name="Vx" size="4" />
+                <par name="Vy" size="4" />
+                <par name="Vz" size="4" />
+            </cmd>
+            <cmd name="Установка длит. накопления" code="8" type="131">
+                <par name="T, мс" size="2" />
+            </cmd>
+            <cmd name="Установка геометрии кадра" code="9" type="131">
+                <par name="x-смещ.центра" size="2" value="0" />
+                <par name="y-смещ.центра" size="2" value="0" />
+                <par name="ширина" size="2" value="64" />
+                <par name="высота" size="2" value="64" />
+            </cmd>
+            <cmd name="Установка режимов ФПУ" code="10" type="131">
+                <par name="Флаги" size="2">
+                    <flag bit="0" name="Бинирование в ФПУ" value ="1" />
+                    <flag bit="1" name="Оптимизация чтения" value ="1" />
+                    <flag bit="2" name="Откл.темновых" value ="0" />
+					<flag bit="3" name="Однократно" value ="0" />
+                    <flag bit="5" name="Вывод шаблона" value ="0" />
+                    <flag bit="6" name="Сумм.темновых" value ="0" />
+                    <!--flag bit="7" name="Полный кадр" value ="0" /-->
+                    <flag bit="8" name="Аналог.усил. 8x" value ="0" />
+                    <flag bit="9" name="Катящийся затвор" value ="0" />
+                    <!--flag bit="10" name="Не усреднять бин" value ="0" descr="Суммирование сигнала в ФПУ вместо усреднения при бинировании" /-->
+                    <flag bit="11" name="Бинирование в ПЛИС" value ="0" />
+                    <!--flag bit="12" name="CLK_REF / CLK_FIX" value ="0" /-->
+                    <flag bit="13" name="Повышенная частота" value ="1" />
+                    <!--flag bit="15" name="Сигнализация запущенного КМОПа" value ="1" /-->
+                </par>
+            </cmd>
+            <cmd name="Установка параметров" code="11" type="131" >
+                <par name="ширина кадра" size="2" value="512" />
+                <par name="высота кадра" size="2" value="512" />
+                <par name="темн. строк" size="2" value="2" />
+                <par name="смещение центра по X" size="2" value="0" />
+                <par name="смещение центра по Y" size="2" value="0" />
+                <par name="угол поворота, угл.сек" size="2" value="0" />
+                <par name="фокус по X, мкм" size="2" value="20250" />
+                <par name="фокус по Y, мкм" size="2" value="20250" />
+                <par name="темп.коэф.фокуса" size="2" value="0" />
+                <par name="коэф.расст.*64" size="4" value="61706" />
+                <par name="гейн*256" size="2" value="4096" />
+                <par name="ср.байес*4" size="2" value="320" />
+                <par name="длит.накопл." size="2" value="200" descr="длительность каждого измерения в мс" />
+                <par name="интерв.измер." size="2" value="333" descr="интервал между последовательными измерениями в мс" />
+                <par name="detw" size="1" value="5" descr="размер изображения звезды" />
+                <par name="detp" size="1" value="1" descr="толщина периметра для определения фона" />
+            </cmd>
+            <!--cmd name="Задание субкадров" code="12" type="133" descr="Каждая запись задает 4 байта с описанием окна: левый, верхний, правый, нижний углы в пикселях, деленных пополам" /-->
+            <cmd name="Установка СК КА" code="13" type="131">
+                <par name="Qw" size="4" type="14"/>
+                <par name="Qx" size="4" type="14"/>
+                <par name="Qy" size="4" type="14"/>
+                <par name="Qz" size="4" type="14"/>
+            </cmd>
+            <cmd name="Переключить шторку" code="14" />
+            <cmd name="Переключить Пельтье" code="15" />
+            <cmd name="Запрос слова состояния" code="16" type="3" rtype="13" />
+            <cmd name="Чтение регистра АЗДК" code="17" type="2" rtype="4">
+                <par name="№ рег." size="1" value="4" />
+            </cmd>
+            <cmd name="Чтение угл.скор." code="18" type="3"  rtype="16"/>
+            <cmd name="Чтение угл.ск.модели" code="19" type="3"  rtype="6"/>
+            <cmd name="Чтение послед. кватер." code="20" type="3" rtype="10" />
+            <cmd name="Чтение времени и даты" code="21" type="3" rtype="8" />
+            <cmd name="Чтение списка фотоц." code="22" type="3" rtype="9" />
+            <cmd name="Чтение кадра" code="23" type="4" rtype="11" />
+            <cmd name="Чтение субкадра" code="24" type="4" rtype="11">
+                <par name="лев." size="2" value="0" />
+                <par name="верх." size="2" value="0" />
+                <par name="прав." size="2" value="31" />
+                <par name="нижн." size="2" value="31" />
+            </cmd>
+            <cmd name="Чтение окон" code="25" type="4" rtype="11" />
+            <cmd name="Статистика" code="26" type="3" rtype="12">
+				<par name="кол-во" size="1" value="0" />
+            </cmd>
+            <cmd name="Чтение параметров" code="27" type="3" rtype="18" />
+            <cmd name="Чтение целевого объекта" code="28" type="3" rtype="19">
+                <par name="кол-во" size="2" value="256" />
+                <par name="кол-во" size="2" value="256" />
+                <par name="кол-во" size="2" value="11" />
+                <par name="кол-во" size="2" value="11" />
+            </cmd>
+            <cmd name="Чтение списка не-звезд" code="29" type="3" rtype="9">
+                <par name="флаги" size="1">
+                    <flag bit="0" name="Кватернион" value ="0" />
+                    <flag bit="1" name="Одиночный" value ="0" />
+                </par>
+            </cmd>
+            <cmd name="Установка скорости RS485" code="30" type="131">
+                <par name="Скорость, кбод" size="2" value="3000" />
+            </cmd>
+            <cmd name="Установка скорости CAN" code="31" type="131">
+                <par name="Скорость, кбод" size="2" value="1000" />
+            </cmd>
+            <cmd name="Режим ожидания" code="48" type="1" />
+            <cmd name="Режим автономной работы" code="49" type="1" color="magenta" />
+            <cmd name="Режим работы по командам" code="50" type="1" />
+            <cmd name="Режим калибровки темнового тока" code="51" type="1" />
+            <cmd name="Режим калибровки MEMS-гироскопа" code="52" type="1" />
+            <cmd name="Режим чтения сырых кадров" code="53" type="1"/>
+            <!--cmd name="Режим отладочный" code="54" type="1" /-->
+            <cmd name="Режим усреднения кадра" code="57" type="1" >
+				<par name="Чило кадров" size="2" value="128" />
+			</cmd>
+            <cmd name="Запись всех данных в FLASH" code="64" type="1" color="indigo" />
+            <cmd name="Сохранение настроек в FLASH" code="67" color="indigo" />
+            <cmd name="Чтение данных" code="68" type="4" rtype="13">
+                <par name="адрес" size="4" value="0" />
+                <par name="размер" size="4" value="0" />
+            </cmd>
+            <cmd name="Запись данных" code="69" type="132" >
+                <par name="размер" size="4" value="0" />
+                <par name="CRC" size="2" value="0" />
+                <par name="адрес" size="4" value="0" />
+            </cmd>
+            <cmd name="Чтение версии ПО" code="70" type="3" />
+            <cmd name="Обновление ПО" code="71" type="1" />
+            <cmd name="Установка номера устройства" code="72" type="131">
+                <par name="Номер" size="1" />
+                <par name="Серия" size="1" />
+			</cmd>
+            <cmd name="Запись ПО пошагово (+стирание)" code="73" type="131" >
+                <par name="смещение" size="2" value="0" />
+                <par name="размер" size="2" value="0" />
+                <par name="данные" size="0" />
+            </cmd>
+            <cmd name="Возвращение к загручику" code="75" type="1" >
+                <par name="CAN протокол" size="1" value="2" />
+            </cmd>
+            <cmd name="Настройка оповещений" code="76" type="131">
+                <par name="CAN ID получателя" size="1" value="1" />
+                <par name="флаги" size="2">
+                    <flag bit="0" name="Перезагрузка" value="1" />
+                    <flag bit="1" name="Кватернион" value="1" />
+                    <flag bit="2" name="+Состояние" value="1" />
+                    <flag bit="5" name="по CAN" value="0" />
+                    <flag bit="6" name="по UART" value="1" />
+                    <flag bit="7" name="Окна (отладка)" value="0" />
+                    <flag bit="8" name="Объекты" value="0" />
+                    <flag bit="14" name="Центры (отладка)" value="0" />
+                    <flag bit="15" name="Отключить" value="0" />
+                </par>
+                <par name="Интервал состояния, мс" size="2" value="0" />
+                <par name="Интервал угл.скорости, мс" size="2" value="0" />
+            </cmd>
+            <cmd name="Рестарт" code="112" type="64" rtype="4" />
+            <cmd name="Состояние" code="113" type="64" rtype="13" />
+            <cmd name="Кватернион" code="114" type="64" rtype="10" />
+            <cmd name="Угл.скорость" code="115" type="64" rtype="16" />
+            <cmd name="Объекты" code="117" type="64" rtype="9" />
+            <cmd name="Фотоцентры" code="118" type="64" rtype="17" />
+        </commands>
+        <registers>
+            <reg name="Текущая команда" code="0" descr="Текущая исполняемая команда" flags="1" />
+            <reg name="Исполненная команда" code="1" descr="Последняя исполненная команда" flags="1" />
+            <reg name="Измер.кадров" code="2" descr="Число измеренных кадров с начала сеанса" flags="1" />
+            <reg name="#Счит.кадров" code="3" descr="Число считанных кадров с начала сеанса" flags="1" />
+            <reg name="#Плохих кадр." code="4" descr="Число испорченных кадров с начала сеанса" flags="1" />
+            <reg name="#Идент.кадр." code="5" descr="Число успешных отождествлений" flags="1" />
+            <reg name="Ширина кадра" code="6" descr="Ширина (полная) кадра в пикселях" flags="1" />
+            <reg name="Высота кадра" code="7" descr="Высота (полная) кадра в пикселях" flags="1" />
+            <reg name="Фокус" code="8" descr="Фокусное расстояние, мкм" flags="3" />
+            <reg name="Температура" code="9" descr="Температура приемника, К" flags="1" />
+            <reg name="Темн.сигнал" code="10" descr="Текущее значение среднего темнового сигнала" flags="1" />
+            <reg name="Засветка" code="11" descr="Текущее значение засветки" flags="1" />
+            <reg name="VrotX, рад/с" code="12" descr="Компонента X скорости вращения по MEMS, радиан/с" flags="1" />
+            <reg name="VrotY, рад/с" code="13" descr="Компонента Y скорости вращения по MEMS, радиан/с" flags="1" />
+            <reg name="VrotZ, рад/с" code="14" descr="Компонента Z скорости вращения по MEMS, радиан/с" flags="1" />
+            <reg name="Интервал, мс" code="15" descr="Интервал измерений" flags="3" />
+            <reg name="Длит.накопления, мс" code="16" descr="Длительность накопления" flags="3" />
+            <reg name="Средний байес" code="17" descr="Среднее значение байеса" flags="3" />
+            <reg name="Средний гейн" code="18" descr="Коэфффицент преобразования из АЦП в эл." flags="3" />
+            <reg name="Версия ПО" code="19" descr="Версия внутреннего программного обеспечения" flags="1" />
+            <reg name="#фотоцен." code="20" descr="Число обнуруженных изобр. звезд" flags="1" />
+            <reg name="#ид.звезд" code="21" descr="Число иднентифицированных звезд" flags="1" />
+			<reg name="Завод.номер" code="22" descr="Заводской номер устройства" flags="1" />
+            <reg name="#отсл.звезд" code="23" descr="Число отслеживаемых звезд" flags="1" />
+            <reg name="#ресетов" code="24" descr="Число перезапусков прибора" flags="3" />
+            <reg name="Корр.таймера" code="25" descr="Коррекция хода системных часов, тики ЦПУ" flags="3" />
+            <reg name="X-масштаб" code="26" descr="Масштаб по оси X" flags="3" />
+            <reg name="Y-масштаб" code="27" descr="Масштаб по оси Y" flags="3" />
+            <reg name="X-центр,мкм" code="28" descr="Положения центра по оси X" flags="3" />
+            <reg name="Y-центр,мкм" code="29" descr="Положения центра по оси Y" flags="3" />
+            <reg name="Z-поворот,″" code="30" descr="Поворот относительно оси Z" flags="3" />
+            <reg name="Темп.коэф." code="31" descr="Температурный коэффициент изменения масштаба" flags="3" />
+        </registers>
+        <errors>
+            <err descr="нет ошибки" code="0" name="E_OK" />
+            <err descr="найдены ошибки в коде программы" code="1" name="E_CODE_ERRORS" />
+            <err descr="найдены ошибки в данных" code="2" name="E_DATA_ERRORS" />
+            <err descr="невозможность настроить АЗДК на работу (прочие ошибки)" code="3" name="E_AZDK_INIT_FAILED" />
+            <err descr="неверный размер данных в памяти" code="4" name="E_WR_ESRAM_DATA_SIZE" />
+            <err descr="слишком высокий уровень темнового тока" code="5" name="ECO_HIGH_DARK" />
+            <err descr="слишком высокий уровень засветки" code="6" name="ECO_HIGH_BKGR" />
+            <err descr="шторка не открыта" code="7" name="ECO_SHUTTER_SHUT" />
+            <err descr="шторка не закрыта" code="8" name="ECO_SHUTTER_OPEN" />
+            <err descr="отсутствует синхронизация (часов)" code="9" name="ECO_OUT_OF_SYNC" />
+            <err descr="шторка не работает" code="10" name="E_BROKEN_SHUTTER" />
+            <err descr="не работает КМОП" code="11" name="E_BROKEN_CMOS" />
+            <err descr="ошибка программирования Флэш (обычно ввиду того, что память не была стерта)" code="12" name="E_FLASH_MEM_PRG_FLR" />
+            <err descr="все 3 значения в памяти разные при мажоритарной выборке" code="13" name="E_WRONG_MEMORY_MAJ" />
+            <err descr="отсутсвие данных в АЗДК (забыли залить?)" code="14" name="E_AZDK_DATA_MISSING" />
+            <err descr="невозможно включить КМОП" code="15" name="E_CMOS_ACQ_IMPOS" />
+            <err descr="ошибка в проверке CRC кода программ" code="16" name="E_WR_CODE_CRC" />
+            <err descr="ошибка в проверке CRC базы данных" code="17" name="E_WR_DB_CRC" />
+            <err descr="ошибка в проверке CRC данных с резервированием" code="18" name="E_WR_DATA_COPY_CRC" />
+            <err descr="ошибка в проверке CRC данных без резервирования" code="19" name="E_WR_DATA_FLAT_CRC" />
+            <err descr="тяжелый отказ" code="20" name="E_HARD_FAULT" />
+            <err descr="отказ доступа к шине" code="21" name="E_BUS_FAULT" />
+            <err descr="отказ, вызванный ошибками программирования" code="22" name="E_USAGE_FAULT" />
+            <err descr="модель вращения не готова к выдаче результатов" code="128" name="EWM_RM_NOT_READY" />
+            <err descr="шторка закрыта" code="129" name="EWM_SHUTTER_CLOSED" />
+            <err descr="шторка открыта" code="130" name="EWM_SHUTTER_OPENED" />
+            <err descr="слишком быстрое вращение" code="131" name="EWM_RAPID_ROTATION" />
+            <err descr="плохие условия для измерений" code="132" name="EWM_BAD_MEAS_COND" />
+            <err descr="неверная команда" code="160" name="ECR_ILLEGAL_CMD" />
+            <err descr="неверные данные" code="161" name="ECR_ILLEGAL_DATA" />
+            <err descr="несовпадение в CRC" code="162" name="ECR_CRC_MISMATCH" />
+            <err descr="переполнение" code="176" name="ESV_OVERFLOW" />
+            <err descr="деления на ноль" code="177" name="ESV_DIV_BY_ZERO" />
+            <err descr="зарезервировано" code="178" name="ESV_RESERVED_1" />
+            <err descr="неопределенность выражения" code="179" name="ESV_INDETERMINATE" />
+            <err descr="что-то вышло за пределы" code="180" name="ESV_OUT_OF_RANGE" />
+            <err descr="зарезервировано" code="181" name="ESV_RESERVED_2" />
+            <err descr="недопустимые аргументы функции" code="182" name="ESV_INVALID_ARGS" />
+            <err descr="недопустимые данные" code="183" name="ESV_WR_INVALID_DATA" />
+            <err descr="нехватка памяти стека" code="184" name="ESV_OUT_OF_MEMORY" />
+            <err descr="неверный режим работы" code="192" name="ECMD_WR_MODE" />
+            <err descr="невыполненные условия входа в заданный режим" code="193" name="ECMD_WR_MODE_CONDS" />
+            <err descr="модель движения не работает" code="194" name="ECMD_DATA_NOT_READY" />
+            <err descr="нет ошибки" code="240" name="UE_OK" />
+            <err descr="ошибка CRC" code="241" name="UE_WR_CRC" />
+            <err descr="неверная длина пакета" code="242" name="UE_WR_PLEN" />
+            <err descr="неизвестная команда" code="243" name="UE_WR_CMD" />
+            <err descr="запрещенная команда" code="244" name="UE_FORB_CMD" />
+            <err descr="неверное количество данных в пакете" code="245" name="UE_WR_DLEN" />
+            <err descr="неверный адрес" code="246" name="UE_WR_ADDR" />
+            <err descr="предыдущая команда еще исполняется" code="247" name="UE_CMD_CONFL" />
+            <err descr="неверный номер регистра" code="248" name="UE_WR_REG_NUM" />
+            <err descr="нереализованная команда" code="249" name="UE_CMD_UNRLSD" />
+            <err descr="нет ошибки, команда требует квитанции подтверждения" code="250" name="UE_URGENT_ANS" />
+            <err descr="неверный номер пакета (потерян пакет)" code="251" name="UE_WR_PKG_NUM" />
+            <err descr="данные невыравнены" code="252" name="UE_UNALIGNED_DATA" />
+        </errors>
+        <wmodes>
+            <wmode name="Unknown" code="0" type="1" descr="неопределенное" />
+            <wmode name="Init" code="1" type="1" descr="инициализация" />
+            <wmode name="Idle" code="2" type="1" descr="ожидание" />
+            <wmode name="Debug" code="3" type="1" descr="отладочный режим" />
+            <wmode name="Autonom" code="4" type="1" descr="автономная работа" />
+            <wmode name="DarkCal" code="5" type="1" descr="калибровка темнового тока" />
+            <wmode name="MEMSCal" code="6" type="1" descr="калибровка MEMS-гироскопа" />
+            <wmode name="WR_ROM" code="7" type="1" descr="запись данных в флэш" />
+            <wmode name="FW_Erase" code="8" type="1" descr="очистка флэш для ПО" />
+            <wmode name="FW_Update" code="9" type="1" descr="программирование ПО" />
+            <wmode name="FFR" code="10" type="1" descr="чтение сырых кадров" />
+            <wmode name="CmdSync" code="11" type="1" descr="работа по командам" />
+            <wmode name="FPGA_Test" code="12" type="1" descr="тест ПЛИС" />
+            <wmode name="FFR2" code="13" type="1" descr="чтение сырых кадров 2" />
+            <wmode name="FFR3" code="14" type="1" descr="чтение сырых кадров 3" />
+            <wmode name="LOADER" code="15" type="1" descr="режим загрузчика" />
+
+            <wmode name="Unknown" code="0" type="2" descr="неопределенное" />
+            <wmode name="FrmReady" code="1" type="2" descr="готовность кадра" />
+            <wmode name="DataRed" code="2" type="2" descr="обработка сохраненных видеоданных" />
+            <wmode name="FrmWait" code="3" type="2" descr="ожидание нового кадра" />
+            <wmode name="DarkWait" code="4" type="2" descr="ожидание данных темновых пикселей" />
+            <wmode name="DataWait" code="5" type="2" descr="ожидание новых видеоданных" />
+            <wmode name="Read" code="6" type="2" descr="передача видеоданных из ПЛИС в ОЗУ" />
+
+            <wmode name="Idle" code="0" type="3" descr="ожидание" />
+            <wmode name="RdVideo" code="1" type="3" descr="Чтение данных из КМОП" />
+            <wmode name="WrData" code="2" type="3" descr="Сохранение калибровочных данных во Flash" />
+            <wmode name="LdData" code="3" type="3" descr="Загрузка калибровочных данных из Flash" />
+            <wmode name="Reduct" code="4" type="3" descr="Начальная обработка видеоданных" />
+            <wmode name="PhcSeach" code="5" type="3" descr="Поиск изображений звезд" />
+            <wmode name="PhcIdent" code="6" type="3" descr="Отождествление звезд и изображений" />
+            <wmode name="QuatDet" code="7" type="3" descr="Расчет кватерниона ориентации" />
+            <wmode name="GetStars" code="8" type="3" descr="Выборка и проекция звезд" />
+            <wmode name="Predict" code="9" type="3" descr="Предсказание положений звезд" />
+            <wmode name="CRCCalc" code="10" type="3" descr="Вычисление CRC" />
+        </wmodes>
+    </azdkconfig>
+</configuration>
